@@ -1,61 +1,113 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
-  font-family: Arial, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  background-color: #f4f4f4;
-  margin: 0;
+  background: linear-gradient(135deg, #1e3c72, #2a5298);
+  color: white;
 }
 
 .calculator {
-  background: white;
-  padding: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 2rem;
   border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 90%;
+  max-width: 400px;
+}
+
+h1 {
   text-align: center;
-  width: 300px;
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
 }
 
 .input-group {
-  margin: 10px 0;
+  margin-bottom: 1rem;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.5rem;
 }
 
 input {
   width: 100%;
-  padding: 8px;
-  margin-top: 5px;
-  border: 1px solid #ccc;
+  padding: 0.5rem;
+  border: none;
   border-radius: 5px;
+  background: rgba(255, 255, 255, 0.9);
+  font-size: 1rem;
 }
 
 button {
-  background: #007BFF;
+  width: 100%;
+  padding: 0.75rem;
+  background: #4CAF50;
   color: white;
   border: none;
-  padding: 10px;
-  width: 100%;
-  margin-top: 10px;
-  cursor: pointer;
   border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s ease;
 }
 
 button:hover {
-  background: #0056b3;
+  background: #45a049;
 }
 
 .result {
-  margin-top: 20px;
+  margin-top: 1.5rem;
+  text-align: center;
+}
+
+#time-result {
+  font-size: 2rem;
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+  font-weight: bold;
 }
 
 .time-info {
-  margin-top: 10px;
-  font-size: 14px;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.time-info p {
+  margin: 0.5rem 0;
+  font-size: 1.3rem;
+}
+
+#current-time,
+#arrival-time {
+  font-size: 1.5rem;
+  font-weight: bold;
 }
 
 .watermark {
-  position: absolute;
+  position: fixed;
   bottom: 10px;
-  font-size: 12px;
-  color: #666;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 20px;
+  color: rgba(255, 255, 255, 0.3);
+  font-size: 0.8rem;
+  pointer-events: none;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.watermark span {
+  font-family: monospace;
 }
