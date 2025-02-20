@@ -49,11 +49,17 @@ input {
   font-size: 1rem;
 }
 
-button {
-  width: 100%;
+/* Estilos para los botones */
+.button-group {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px; /* Espaciado entre botones */
+  margin-top: 10px; /* Espacio respecto a los inputs */
+}
+
+.button-group button {
+  flex: 1; /* Ambos botones ocuparán el mismo espacio */
   padding: 0.75rem;
-  background: #4CAF50;
-  color: white;
   border: none;
   border-radius: 5px;
   font-size: 1rem;
@@ -61,8 +67,24 @@ button {
   transition: background 0.3s ease;
 }
 
-button:hover {
+/* Estilo del botón Calcular */
+#calculate {
+  background: #4CAF50; /* Verde */
+  color: white;
+}
+
+#calculate:hover {
   background: #45a049;
+}
+
+/* Estilo del botón Limpiar */
+#clear {
+  background: #d9534f; /* Rojo */
+  color: white;
+}
+
+#clear:hover {
+  background: #c9302c;
 }
 
 .result {
@@ -78,12 +100,12 @@ button:hover {
 }
 
 .time-info {
-    display: flex;
-    justify-content: space-between;
-    padding: 1rem;
-    margin-top: 1rem;
-    padding-top: 1rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.2);
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 #current-time,

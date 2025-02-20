@@ -2,22 +2,21 @@ document.addEventListener('DOMContentLoaded', () => {
     const distanceInput = document.getElementById('distance');
     const speedInput = document.getElementById('speed');
     const calculateButton = document.getElementById('calculate');
+    const clearButton = document.getElementById('clear');
     const timeResult = document.getElementById('time-result');
     const currentTimeDisplay = document.getElementById('current-time');
     const arrivalTimeDisplay = document.getElementById('arrival-time');
 
     function updateCurrentTime() {
         const now = new Date();
-
-        const day = String(now.getDate()).padStart(2, '0');
-        const month = String(now.getMonth() + 1).padStart(2, '0');
-        const year = now.getFullYear();
-
-        currentTimeDisplay.textContent = `${day}/${month}/${year} ${now.toLocaleTimeString('es-ES', {
+        currentTimeDisplay.textContent = now.toLocaleString('es-ES', {
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric',
             hour: '2-digit',
             minute: '2-digit',
             second: '2-digit'
-        })}`;
+        });
     }
 
     updateCurrentTime();
@@ -34,38 +33,18 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         const timeInSeconds = (distance / speed) * 3600;
-        const hours = Math.floor(timeInSeconds / 3600);
-        const minutes = Math.floor((timeInSeconds % 3600) / 60);
-        const seconds = Math.floor(timeInSeconds % 60);
+        const arrivalTime = new Date(Date.now() + timeInSeconds * 1000);
+        timeResult.textContent = new Date(timeInSeconds * 1000).toISOString().substr(11, 8);
+        arrivalTimeDisplay.textContent = arrivalTime.toLocaleString('es-ES');
+    }
 
-        timeResult.textContent = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-
-        const now = new Date();
-        const arrivalTime = new Date(now.getTime() + timeInSeconds * 1000);
-
-        let formattedDate = arrivalTime.toLocaleDateString('es-ES', {
-            day: '2-digit',
-            month: '2-digit',
-            year: 'numeric'
-        });
-
-        let dateWithTime = `${formattedDate} ${arrivalTime.toLocaleTimeString('es-ES', {
-            hour: '2-digit',
-            minute: '2-digit',
-            second: '2-digit'
-        })}`;
-
-        // ✅ Mostramos la hora de llegada en la interfaz
-        arrivalTimeDisplay.textContent = dateWithTime;
+    function clearFields() {
+        distanceInput.value = '';
+        speedInput.value = '';
+        timeResult.textContent = '--:--:--';
+        arrivalTimeDisplay.textContent = '--/--/---- --:--:--';
     }
 
     calculateButton.addEventListener('click', calculateTime);
-    
-    [distanceInput, speedInput].forEach(input => {
-        input.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                calculateTime();
-            }
-        });
-    });
+    clearButton.addEventListener('click', clearFields);
 });
