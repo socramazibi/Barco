@@ -84,5 +84,30 @@ button:hover {
 
 .time-info p {
   margin: 0.5rem 0;
-  font-size: 1.1rem;
+  font-size: 1.3rem;
+}
+
+#current-time,
+#arrival-time {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.watermark {
+  position: fixed;
+  bottom: 10px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 20px;
+  color: rgba(255, 255, 255, 0.3);
+  font-size: 0.8rem;
+  pointer-events: none;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.watermark span {
+  font-family: monospace;
 }

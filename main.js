@@ -1,4 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
+  // Increment visit counter in localStorage
+  const visits = parseInt(localStorage.getItem('visitCount') || '0') + 1;
+  localStorage.setItem('visitCount', visits);
+  document.getElementById('visit-count').textContent = visits;
+
   const distanceInput = document.getElementById('distance');
   const speedInput = document.getElementById('speed');
   const calculateButton = document.getElementById('calculate');
