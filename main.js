@@ -1,50 +1,30 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const distanceInput = document.getElementById('distance');
-    const speedInput = document.getElementById('speed');
-    const calculateButton = document.getElementById('calculate');
-    const clearButton = document.getElementById('clear');
-    const timeResult = document.getElementById('time-result');
-    const currentTimeDisplay = document.getElementById('current-time');
-    const arrivalTimeDisplay = document.getElementById('arrival-time');
+document.addEventListener('DOMContentLoaded', () => { const distanceInput = document.getElementById('distance'); const speedInput = document.getElementById('speed'); const calculateButton = document.getElementById('calculate'); const timeResult = document.getElementById('time-result'); const currentTimeDisplay = document.getElementById('current-time'); const arrivalTimeDisplay = document.getElementById('arrival-time');
 
-    function updateCurrentTime() {
-        const now = new Date();
-        currentTimeDisplay.textContent = now.toLocaleString('es-ES', {
-            day: '2-digit',
-            month: '2-digit',
-            year: 'numeric',
-            hour: '2-digit',
-            minute: '2-digit',
-            second: '2-digit'
-        });
-    }
+function formatDateTime(date) { const day = String(date.getDate()).padStart(2, '0'); const month = String(date.getMonth() + 1).padStart(2, '0'); const year = date.getFullYear(); const hours = String(date.getHours()).padStart(2, '0'); const minutes = String(date.getMinutes()).padStart(2, '0'); const seconds = String(date.getSeconds()).padStart(2, '0'); return ${day}/${month}/${year} ${hours}:${minutes}:${seconds}; }
 
-    updateCurrentTime();
-    setInterval(updateCurrentTime, 1000);
+function updateCurrentTime() { const now = new Date(); currentTimeDisplay.textContent = formatDateTime(now); }
 
-    function calculateTime() {
-        const distance = parseFloat(distanceInput.value);
-        const speed = parseFloat(speedInput.value);
+updateCurrentTime(); setInterval(updateCurrentTime, 1000);
 
-        if (isNaN(distance) || isNaN(speed) || distance <= 0 || speed <= 0) {
-            timeResult.textContent = 'Ingrese valores válidos';
-            arrivalTimeDisplay.textContent = '--/--/---- --:--:--';
-            return;
-        }
+function calculateTime() { const distance = parseFloat(distanceInput.value); const speed = parseFloat(speedInput.value);
 
-        const timeInSeconds = (distance / speed) * 3600;
-        const arrivalTime = new Date(Date.now() + timeInSeconds * 1000);
-        timeResult.textContent = new Date(timeInSeconds * 1000).toISOString().substr(11, 8);
-        arrivalTimeDisplay.textContent = arrivalTime.toLocaleString('es-ES');
-    }
+if (isNaN(distance) || isNaN(speed) || distance <= 0 || speed <= 0) {
+  timeResult.textContent = 'Ingrese valores válidos';
+  arrivalTimeDisplay.textContent = '--/--/---- --:--:--';
+  return;
+}
 
-    function clearFields() {
-        distanceInput.value = '';
-        speedInput.value = '';
-        timeResult.textContent = '--:--:--';
-        arrivalTimeDisplay.textContent = '--/--/---- --:--:--';
-    }
+const timeInSeconds = (distance / speed) * 3600;
+const hours = Math.floor(timeInSeconds / 3600);
+const minutes = Math.floor((timeInSeconds % 3600) / 60);
+const seconds = Math.floor(timeInSeconds % 60);
 
-    calculateButton.addEventListener('click', calculateTime);
-    clearButton.addEventListener('click', clearFields);
-});
+timeResult.textContent = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+
+const now = new Date();
+const arrivalTime = new Date(now.getTime() + timeInSeconds * 1000);
+arrivalTimeDisplay.textContent = formatDateTime(arrivalTime);
+
+}
+
+calculateButton.addEventListener('click', calculateTime); [distanceInput, speedInput].forEach(input => { input.addEventListener('keypress', (e) => { if (e.key === 'Enter') { calculateTime(); } }); }); });
