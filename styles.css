@@ -12,6 +12,7 @@ body {
   align-items: center;
   background: linear-gradient(135deg, #1e3c72, #2a5298);
   color: white;
+  padding: 20px;
 }
 
 .calculator {
@@ -20,7 +21,7 @@ body {
   border-radius: 10px;
   backdrop-filter: blur(10px);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  width: 90%;
+  width: 100%;
   max-width: 400px;
 }
 
@@ -41,7 +42,7 @@ label {
 
 input {
   width: 100%;
-  padding: 0.5rem;
+  padding: 0.75rem;
   border: none;
   border-radius: 5px;
   background: rgba(255, 255, 255, 0.9);
@@ -99,7 +100,7 @@ button:hover {
   left: 0;
   right: 0;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   padding: 0 20px;
   color: rgba(255, 255, 255, 0.3);
   font-size: 0.8rem;
@@ -110,4 +111,34 @@ button:hover {
 
 .watermark span {
   font-family: monospace;
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+  .calculator {
+    padding: 1.5rem;
+    width: 95%;
+  }
+
+  h1 {
+    font-size: 1.3rem;
+  }
+
+  input {
+    padding: 0.5rem;
+    font-size: 0.9rem;
+  }
+
+  button {
+    padding: 0.6rem;
+    font-size: 0.9rem;
+  }
+
+  #time-result {
+    font-size: 1.5rem;
+  }
+
+  .time-info p {
+    font-size: 1rem;
+  }
 }

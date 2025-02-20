@@ -8,9 +8,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function updateCurrentTime() {
     const now = new Date();
-    currentTimeDisplay.textContent = now.toLocaleTimeString('es-ES', {
+    const formattedDate = now.toLocaleDateString('es-ES', {
+      weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+    });
+    const formattedTime = now.toLocaleTimeString('es-ES', {
       hour: '2-digit', minute: '2-digit', second: '2-digit'
     });
+    currentTimeDisplay.textContent = `${formattedDate} ${formattedTime}`;
   }
 
   updateCurrentTime();
@@ -22,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (isNaN(distance) || isNaN(speed) || distance <= 0 || speed <= 0) {
       timeResult.textContent = 'Ingrese valores válidos';
-      arrivalTimeDisplay.textContent = '--:--:--';
+      arrivalTimeDisplay.textContent = '--/--/---- --:--:--';
       return;
     }
 
@@ -35,9 +39,17 @@ document.addEventListener('DOMContentLoaded', () => {
     
     const now = new Date();
     const arrivalTime = new Date(now.getTime() + timeInSeconds * 1000);
-    arrivalTimeDisplay.textContent = arrivalTime.toLocaleTimeString('es-ES', {
-      hour: '2-digit', minute: '2-digit', second: '2-digit'
+    
+    let arrivalDate = arrivalTime.toLocaleDateString('es-ES', {
+      weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
     });
+    if (arrivalTime.getDate() !== now.getDate()) {
+      arrivalDate = `Mañana, ${arrivalDate}`;
+    }
+    
+    arrivalTimeDisplay.textContent = `${arrivalDate} ${arrivalTime.toLocaleTimeString('es-ES', {
+      hour: '2-digit', minute: '2-digit', second: '2-digit'
+    })}`;
   }
 
   calculateButton.addEventListener('click', calculateTime);
