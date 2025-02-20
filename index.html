@@ -1,35 +1,86 @@
-<html lang="en">
+<!DOCTYPE html><html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Calculadora Náutica</title>
   <link rel="stylesheet" href="styles.css">
+  <meta name="robots" content="noindex, nofollow">
 </head>
 <body>
   <div class="calculator">
     <h1>Nautical ETA</h1>
     <div class="input-group">
       <label for="distance">Distancia (millas náuticas):</label>
-      <input type="number" id="distance" min="0" step="0.1">
+      <input type="number" id="distance" min="0.1" step="0.1">
     </div>
     <div class="input-group">
       <label for="speed">Velocidad (nudos):</label>
-      <input type="number" id="speed" min="0" step="0.1">
+      <input type="number" id="speed" min="0.1" step="0.1">
     </div>
     <button id="calculate">Calcular</button>
     <div class="result" id="result">
       <h2>Tiempo de Viaje:</h2>
-      <p id="time-result">--:--</p>
+      <p id="time-result">--:--:--</p>
       <div class="time-info">
-        <p>Hora Actual: <span id="current-time">--:--</span></p>
-        <p>Hora de Llegada: <span id="arrival-time">--:--</span></p>
+        <p>Hora Actual: <span id="current-time">--:--:--</span></p>
+        <p>Hora de Llegada: <span id="arrival-time">--:--:--</span></p>
       </div>
     </div>
   </div>
   <div class="watermark">
-    <span>Visitas: <span id="visit-count">0</span></span>
-    <span>Beta v0.0.2</span>
+    <span>v0.0.5</span>
   </div>
-  <script src="main.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const distanceInput = document.getElementById('distance');
+      const speedInput = document.getElementById('speed');
+      const calculateButton = document.getElementById('calculate');
+      const timeResult = document.getElementById('time-result');
+      const currentTimeDisplay = document.getElementById('current-time');
+      const arrivalTimeDisplay = document.getElementById('arrival-time');function updateCurrentTime() {
+    const now = new Date();
+    currentTimeDisplay.textContent = now.toLocaleTimeString('es-ES', {
+      hour: '2-digit', minute: '2-digit', second: '2-digit'
+    });
+  }
+
+  updateCurrentTime();
+  setInterval(updateCurrentTime, 1000);
+
+  function calculateTime() {
+    const distance = parseFloat(distanceInput.value);
+    const speed = parseFloat(speedInput.value);
+
+    if (isNaN(distance) || isNaN(speed) || distance <= 0 || speed <= 0) {
+      timeResult.textContent = 'Ingrese valores válidos';
+      arrivalTimeDisplay.textContent = '--:--:--';
+      return;
+    }
+
+    const timeInSeconds = (distance / speed) * 3600;
+    const hours = Math.floor(timeInSeconds / 3600);
+    const minutes = Math.floor((timeInSeconds % 3600) / 60);
+    const seconds = Math.floor(timeInSeconds % 60);
+    
+    timeResult.textContent = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+    
+    const now = new Date();
+    const arrivalTime = new Date(now.getTime() + timeInSeconds * 1000);
+    arrivalTimeDisplay.textContent = arrivalTime.toLocaleTimeString('es-ES', {
+      hour: '2-digit', minute: '2-digit', second: '2-digit'
+    });
+  }
+
+  calculateButton.addEventListener('click', calculateTime);
+  [distanceInput, speedInput].forEach(input => {
+    input.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        calculateTime();
+      }
+    });
+  });
+});
+
+  </script>
 </body>
 </html>

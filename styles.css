@@ -99,7 +99,7 @@ button:hover {
   left: 0;
   right: 0;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   padding: 0 20px;
   color: rgba(255, 255, 255, 0.3);
   font-size: 0.8rem;
